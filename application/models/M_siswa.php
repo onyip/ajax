@@ -11,7 +11,7 @@ class M_siswa extends CI_Model{
 
 	public function by_id($where)
 	{
-		return $this->db->get_where('tb_siswa', $where)->result();
+		return $this->db->get_where('tb_siswa', $where)->row();
 	}
 
 	public function update($where, $data)
