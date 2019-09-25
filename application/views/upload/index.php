@@ -54,41 +54,34 @@
       <tr>
         <td class="text-center"><?=$no++?></td>
         <td class="text-center">
-         <a onclick="foto()"><i class="fa fa-search text-primary btn btn-sm"></i></a>
-         <a href="<?=base_url("upload/update/$row->id")?>"><i class="fa fa-pencil-square-o text-warning btn btn-sm"></i></a>
-         <a href="<?=base_url("upload/delete/$row->id")?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-times text-danger btn btn-sm"></i></a></td>
+          <a class="detail" onclick="detail(<?=$row->id?>)" href=""><i class="fa fa-search text-primary btn btn-sm"></i></a>
+          <a href="<?=base_url("upload/update/$row->id")?>"><i class="fa fa-pencil-square-o text-warning btn btn-sm"></i></a>
+          <a href="<?=base_url("upload/delete/$row->id")?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-times text-danger btn btn-sm"></i></a></td>
 
-        <td><?=$row->fullname?></td>
-        <td><?=$row->username?></td>
-        <td><?=$row->address?></td>
-        <td class="text-center"><?=$row->gender?></td>
-        <td class="text-center"><?=$row->is_active?></td>
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="hapus">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Hapus Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Hapus<?=$row->id?></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </tr>
-    <?php endforeach ?>
-  </tbody>
-</table>
+          <td><?=$row->fullname?></td>
+          <td><?=$row->username?></td>
+          <td><?=$row->address?></td>
+          <td class="text-center"><?=$row->gender?></td>
+          <td class="text-center"><?=$row->is_active?></td>
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -99,5 +92,29 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="<?=base_url()?>js/ajax.js"></script>
+<script type="text/javascript">
+  $('.detail').click(function(e) {
+    e.preventDefault();
+    $('#detail').modal('show');
+  });
+
+  function detail(e){
+    $.ajax({
+      type   : 'POST',
+      url    : base_url+'siswa/get_byID',
+      data   : {id:e},
+      dataType : 'json',
+      success  : function(x){
+        if (x.foto != "") {
+        var foto = '<img src="<?=base_url()?>asset/img/'+x.foto+'">'
+        $('.modal-body').html(foto);
+        } else {
+        var foto = '<h1>Foto Tidak Ditemukan</h1>'
+        $('.modal-body').html(foto);
+        }
+      }
+    });    
+  }
+</script>
 </body>
 </html>

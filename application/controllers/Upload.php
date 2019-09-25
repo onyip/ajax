@@ -88,8 +88,8 @@ class Upload extends CI_Controller {
 				$config['create_thumb']		= FALSE;
 				$config['maintain_ratio']	= FALSE;
 				$config['quality']			= '50%';
-				$config['width']			= 600;
-				$config['height']			= 400;
+				$config['width']			= 470;
+				$config['height']			= 300;
 				$config['new_image']		= './asset/img/'.$gbr['file_name'];
 				$this->load->library('image_lib', $config);
 				$this->image_lib->resize();

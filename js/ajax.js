@@ -56,18 +56,19 @@ function submit(e){
 			data 	 : {id:e},
 			dataType : 'json',
 			success  : function(byId){
-				$('[name="id"]').val(byId[0].id);
-				$('[name="fullname"]').val(byId[0].fullname);
-				$('[name="username"]').val(byId[0].username);
-				$('[name="password"]').val(byId[0].password);
-				$('[name="religion"]').val(byId[0].religion);
-				$('[name="alamat"]').val(byId[0].address);
+				console.log(byId);
+				$('[name="id"]').val(byId.id);
+				$('[name="fullname"]').val(byId.fullname);
+				$('[name="username"]').val(byId.username);
+				$('[name="password"]').val(byId.password);
+				$('[name="religion"]').val(byId.religion);
+				$('[name="alamat"]').val(byId.address);
 				
-				if (byId[0].is_active == 1) {
+				if (byId.is_active == 1) {
 					$('#status').prop('checked', true);
 				}
 
-				if (byId[0].gender == 'L') {
+				if (byId.gender == 'L') {
 					$('#gender1').prop('checked', true);
 				}else{
 					$('#gender2').prop('checked', true);
@@ -168,5 +169,4 @@ function hapus(e){
 		});
 	}
 }
-
 
