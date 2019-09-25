@@ -61,11 +61,16 @@ class Upload extends CI_Controller {
 			'is_active' => $this->input->post('status')
 		];
 
-		// var_dump($data); die();	
-
 		$this->m_siswa->update($where, $data);
 		redirect('upload');
 
+	}
+
+	public function delete($id)
+	{
+		$where = ['id' => $id];
+		$this->m_siswa->hapus($where);
+		redirect('upload');
 	}
 
 	function do_upload() {
@@ -78,8 +83,8 @@ class Upload extends CI_Controller {
 
 			if ($this->upload->do_upload('foto')){
 				$gbr = $this->upload->data();
-				$config['image_library']	='gd2';
-				$config['source_image']		='./asset/img/'.$gbr['file_name'];
+				$config['image_library']	= 'gd2';
+				$config['source_image']		= './asset/img/'.$gbr['file_name'];
 				$config['create_thumb']		= FALSE;
 				$config['maintain_ratio']	= FALSE;
 				$config['quality']			= '50%';

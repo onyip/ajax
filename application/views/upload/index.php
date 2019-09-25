@@ -56,9 +56,7 @@
         <td class="text-center">
          <a onclick="foto()"><i class="fa fa-search text-primary btn btn-sm"></i></a>
          <a href="<?=base_url("upload/update/$row->id")?>"><i class="fa fa-pencil-square-o text-warning btn btn-sm"></i></a>
-         <a onclick=" if (confirm('apakah anda yakin ingin menghapus data ini ini ?')) {
-          exit();
-         } " href="<?=base_url("upload/delete/$row->id")?>"><i class="fa fa-times text-danger btn btn-sm" data-toggle="modal" data-target="#hapus"></i></a></td>
+         <a href="<?=base_url("upload/delete/$row->id")?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-times text-danger btn btn-sm"></i></a></td>
 
         <td><?=$row->fullname?></td>
         <td><?=$row->username?></td>
