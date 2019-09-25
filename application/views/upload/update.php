@@ -35,6 +35,7 @@
             <label>Full Name</label>
             <input type="text" class="form-control" id="fullname" placeholder="Full Name" name="fullname" value="<?=$siswa->fullname?>">
             <input type="hidden" name="id" value="<?=$siswa->id?>">
+            <input type="hidden" name="lasimg" value="<?=$siswa->foto?>">
           </div>
           <div class="form-group">
             <label>Username</label>
@@ -67,8 +68,7 @@
 
             <div class="form-group" mt="5">
               <label>Religion</label>
-              <select class="custom-select" name="religion" id="religion">
-                <option selected>Select Religion</option>
+              <select class="custom-select" name="religion" id="religion" value="<?=$siswa->religion?>">
                 <option value="1">Islam</option>
                 <option value="2">Kristen</option>
                 <option value="3">Katolik</option>

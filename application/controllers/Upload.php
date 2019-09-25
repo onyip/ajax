@@ -93,12 +93,14 @@ class Upload extends CI_Controller {
 				$config['new_image']		= './asset/img/'.$gbr['file_name'];
 				$this->load->library('image_lib', $config);
 				$this->image_lib->resize();
+				$lasimg = $this->input->post('lasimg');
+				unlink("./asset/img/$lasimg");
 				$gambar=$gbr['file_name'];
 				return $gambar;
 			}
 
 		}else{
-			$gambar = null;
+			$gambar = $this->input->post('lasimg');
 			return $gambar;
 		}
 
