@@ -86,11 +86,11 @@
               <label for="foto">Foto</label><br>
               <input type="file" name="foto"><br>
               <?php if ($siswa->foto != ""): ?>
-                <small class="text-info">sudah ada</small>
+                <img src="<?=base_url()?>/asset/img/<?=$siswa->foto?>" style="width: 100px">
               <?php endif ?>
             </div>
 
-            <div class="form-group form-check">
+            <div class="form-group form-check" >
               <?php if ($siswa->is_active != 0): ?>
                 <input type="checkbox" class="form-check-input" id="status" name="status" value="1" checked>
                 <?php else: ?>

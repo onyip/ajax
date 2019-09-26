@@ -74,28 +74,42 @@ class Upload extends CI_Controller {
 	}
 
 	function do_upload() {
+		//
+		$path_dir = './asset/img/';
+		//
 		$this->load->library('upload');
-		$config['upload_path'] 		= './asset/img/';
+		$config['upload_path'] 		= $path_dir;
 		$config['allowed_types'] 	= 'jpg|png|jpeg'; 
 		$config['encrypt_name'] 	= TRUE;
 		$this->upload->initialize($config);
 		if(!empty($_FILES['foto']['name'])){
 
 			if ($this->upload->do_upload('foto')){
-				$gbr = $this->upload->data();
+				// $gbr = $this->upload->data();
+				$gbr = array('upload_data' => $this->upload->data());
+				//
+				$name_image = $path_dir.$gbr['upload_data']['file_name'];
+				$size = getimagesize($name_image);
+				$width = $size[0];
+				$height = $size[1];
+				//
+				$wd = $width/3;
+				$hg = $height/3;
+				// echo round($hg), round($wd); die();
 				$config['image_library']	= 'gd2';
-				$config['source_image']		= './asset/img/'.$gbr['file_name'];
+				$config['source_image']		= $gbr['upload_data']['full_path'];
 				$config['create_thumb']		= FALSE;
 				$config['maintain_ratio']	= FALSE;
 				$config['quality']			= '50%';
-				$config['width']			= 470;
-				$config['height']			= 300;
-				$config['new_image']		= './asset/img/'.$gbr['file_name'];
+				$config['width']			= round($wd);
+				$config['height']			= round($hg);
+				$config['new_image']		= './asset/img/'.$gbr['upload_data']['file_name'];
+				// echo ($gbr['upload_data']['file_name']); die();
 				$this->load->library('image_lib', $config);
 				$this->image_lib->resize();
 				$lasimg = $this->input->post('lasimg');
 				unlink("./asset/img/$lasimg");
-				$gambar=$gbr['file_name'];
+				$gambar=$gbr['upload_data']['file_name'];
 				return $gambar;
 			}
 
